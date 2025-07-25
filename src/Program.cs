@@ -13,5 +13,7 @@ namespace GuessThePage_Wikipedia
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
         }
+
+        // VERY IMPORTANT, OBJECT NAMING, first personal name, then type of object.
     }
 }

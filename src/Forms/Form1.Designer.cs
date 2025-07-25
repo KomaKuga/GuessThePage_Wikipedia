@@ -39,28 +39,28 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Yu Gothic", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(12, 9);
+            label1.Font = new Font("Yu Gothic", 125.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(37, 72);
             label1.Name = "label1";
-            label1.Size = new Size(380, 61);
+            label1.Size = new Size(1313, 215);
             label1.TabIndex = 0;
             label1.Text = "GuessThePage";
             // 
             // nameTextBox
             // 
-            nameTextBox.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nameTextBox.Location = new Point(39, 235);
+            nameTextBox.Font = new Font("Segoe UI", 72F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            nameTextBox.Location = new Point(64, 512);
             nameTextBox.Name = "nameTextBox";
-            nameTextBox.Size = new Size(293, 43);
+            nameTextBox.Size = new Size(1181, 135);
             nameTextBox.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Yu Gothic", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(29, 171);
+            label2.Font = new Font("Yu Gothic", 72F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(64, 322);
             label2.Name = "label2";
-            label2.Size = new Size(179, 61);
+            label2.Size = new Size(355, 124);
             label2.TabIndex = 2;
             label2.Text = "Name:";
             label2.Click += label2_Click;
@@ -68,28 +68,31 @@
             // errorLabel
             // 
             errorLabel.AutoSize = true;
-            errorLabel.Location = new Point(48, 336);
+            errorLabel.Font = new Font("Segoe UI", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            errorLabel.ForeColor = Color.Red;
+            errorLabel.Location = new Point(114, 825);
             errorLabel.Name = "errorLabel";
-            errorLabel.Size = new Size(0, 15);
+            errorLabel.Size = new Size(0, 86);
             errorLabel.TabIndex = 3;
             // 
             // startButton
             // 
-            startButton.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            startButton.Location = new Point(592, 364);
+            startButton.Font = new Font("Segoe UI", 150F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            startButton.Location = new Point(1211, 752);
             startButton.Name = "startButton";
-            startButton.Size = new Size(186, 63);
+            startButton.Size = new Size(681, 267);
             startButton.TabIndex = 4;
             startButton.Text = "Start";
             startButton.UseVisualStyleBackColor = true;
+            startButton.Click += startClick;
             // 
             // difficultyButton
             // 
             difficultyButton.AutoSize = true;
-            difficultyButton.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            difficultyButton.Location = new Point(486, 242);
+            difficultyButton.Font = new Font("Segoe UI", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            difficultyButton.Location = new Point(1252, 667);
             difficultyButton.Name = "difficultyButton";
-            difficultyButton.Size = new Size(292, 34);
+            difficultyButton.Size = new Size(640, 69);
             difficultyButton.TabIndex = 5;
             difficultyButton.TabStop = true;
             difficultyButton.Text = "HARD Mode (coming soon!)";
@@ -99,7 +102,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1904, 1041);
             Controls.Add(difficultyButton);
             Controls.Add(startButton);
             Controls.Add(errorLabel);

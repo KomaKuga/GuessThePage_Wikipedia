@@ -28,12 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "mainPage";
+            playerLabel = new Label();
+            SuspendLayout();
+            // 
+            // playerLabel
+            // 
+            playerLabel.AutoSize = true;
+            playerLabel.Font = new Font("Segoe UI", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            playerLabel.Location = new Point(22, 19);
+            playerLabel.Name = "playerLabel";
+            playerLabel.Size = new Size(203, 86);
+            playerLabel.TabIndex = 0;
+            playerLabel.Text = "Hello ";
+            // 
+            // mainPage
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1854, 1041);
+            Controls.Add(playerLabel);
+            Name = "mainPage";
+            Text = "mainPage";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label playerLabel;
     }
 }

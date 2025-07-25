@@ -12,9 +12,23 @@ namespace GuessThePage_Wikipedia.Forms
 {
     public partial class mainPage : Form
     {
+        string playerName;
         public mainPage()
         {
             InitializeComponent();
+            
+
+        }
+
+        public mainPage(string playerName)
+        {
+            InitializeComponent();
+
+            this.FormBorderStyle = FormBorderStyle.None; // Remove window borders and title bar
+            this.WindowState = FormWindowState.Maximized; // Maximize to full screen
+            this.Text = "Enter your name"; // Set the title of the form
+            this.playerName = playerName;
+            playerLabel.Text = "Hello , " + playerName + "! Welcome to the game!";
         }
     }
 }
