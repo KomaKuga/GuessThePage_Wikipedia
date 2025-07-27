@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src"
+    "\\src",
+    "\\src\\Forms"
   ],
   "SelectedNode": "\\src\\GuessThePage_Wikipedia.sln",
   "PreviewInSolutionExplorer": false
