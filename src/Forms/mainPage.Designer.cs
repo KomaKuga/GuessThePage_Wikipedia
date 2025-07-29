@@ -46,17 +46,18 @@
             // 
             // textBodyLabel
             // 
-            textBodyLabel.AutoSize = true;
-            textBodyLabel.Location = new Point(89, 219);
+            textBodyLabel.Font = new Font("Segoe UI", 20F);
+            textBodyLabel.Location = new Point(37, 179);
             textBodyLabel.Name = "textBodyLabel";
-            textBodyLabel.Size = new Size(55, 15);
+            textBodyLabel.Size = new Size(1737, 573);
             textBodyLabel.TabIndex = 1;
             textBodyLabel.Text = "BodyText";
+            textBodyLabel.Click += textBodyLabel_Click;
             // 
             // personLabel
             // 
             personLabel.AutoSize = true;
-            personLabel.Location = new Point(55, 515);
+            personLabel.Location = new Point(70, 849);
             personLabel.Name = "personLabel";
             personLabel.Size = new Size(43, 15);
             personLabel.TabIndex = 2;

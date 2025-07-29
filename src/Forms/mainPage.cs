@@ -43,7 +43,7 @@ namespace GuessThePage_Wikipedia.Forms
             try
             {
                 Article article = await gameLogic.GetRandomArticleFromCategory("");
-                
+
                 //MessageBox.Show($"Person: {article.Person}\nSummary: {article.TextBody}");
 
                 textBodyLabel.Text = article.TextBody;
@@ -56,6 +56,11 @@ namespace GuessThePage_Wikipedia.Forms
         }
 
         private void playerLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBodyLabel_Click(object sender, EventArgs e)
         {
 
         }

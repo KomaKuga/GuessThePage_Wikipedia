@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms.Design;
 using GuessThePage_Wikipedia.Logic.Entities; //to get Article class
@@ -47,6 +48,8 @@ namespace GuessThePage_Wikipedia.Logic.Servicies
 
                     string summary = summaryJSON.GetString() ?? string.Empty;// Randomly selects a person from the list
 
+                    summary = CensorNames(summary, answer);
+
                     Console.WriteLine($"Selected person: {summary}"); // Outputs the selected person to the console
 
                     return new Article
@@ -69,6 +72,22 @@ namespace GuessThePage_Wikipedia.Logic.Servicies
                     TextBody = "Doesn't work"
                 };
             }
+        }
+
+        private string CensorNames(string summary, string fullNameWithUnderscores)
+        {
+            string[] nameParts = fullNameWithUnderscores.Split('_');
+
+            foreach (var part in nameParts)
+            {
+                if (string.IsNullOrWhiteSpace(part)) continue;
+
+                // Use Regex to do case-insensitive, whole-word replacement
+                string pattern = $@"\b{Regex.Escape(part)}\b";
+                summary = Regex.Replace(summary, pattern, new string('*', part.Length), RegexOptions.IgnoreCase);
+            }
+
+            return summary;
         }
 
 
