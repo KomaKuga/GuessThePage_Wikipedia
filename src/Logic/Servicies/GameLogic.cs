@@ -15,45 +15,59 @@ namespace GuessThePage_Wikipedia.Logic.Servicies
     {
         private static readonly HttpClient client = new HttpClient();
 
-        /*public async Task<Article> GetRandomArticleFromCategory(string category)
-        {
-            var categoryUrl = $"https://en.wikipedia.org/w/api.php?action=query&list=categorymembers&cmtitle=Category:{category}&cmlimit=500&format=json";
-            var categoryResponse = await client.GetStringAsync(categoryUrl);
-
-            var doc = JsonDocument.Parse(categoryResponse);
-            var members = doc.RootElement.GetProperty("query").GetProperty("categorymembers");
-            var randomIndex = new Random().Next(members.GetArrayLength());
-            var page = members[randomIndex];
-            var title = page.GetProperty("title").GetString();
-
-            // Fetch article summary
-            var encodedTitle = Uri.EscapeDataString(title);
-            var summaryUrl = $"https://en.wikipedia.org/api/rest_v1/page/summary/{encodedTitle}";
-            var summaryResponse = await client.GetStringAsync(summaryUrl);
-            var summaryDoc = JsonDocument.Parse(summaryResponse).RootElement;
-
-            return new Article
-            {
-                Person = summaryDoc.GetProperty("title").GetString(),
-                TextBody = summaryDoc.GetProperty("extract").GetString(),
-                Url = summaryDoc.GetProperty("content_urls").GetProperty("desktop").GetProperty("page").GetString()
-            };
-        }*/
+        string answer;
         public async Task<Article> GetRandomArticleFromCategory(string category)
         {
-            string url = "https://en.wikipedia.org/w/api.php?action=query&list=categorymembers&cmtitle=Category:American_actors&cmlimit=10&format=json";
+            string url = "https://en.wikipedia.org/api/rest_v1/page/summary/";
+            string peopleList = File.ReadAllText("C:\\Users\\josep\\source\\repos\\KomaKuga\\GuessThePage_Wikipedia\\src\\Logic\\Servicies\\staticList.JSON"); // Reads the static list of persons from a JSON file
+
+            using (JsonDocument doc = JsonDocument.Parse(peopleList)) 
+            {
+                JsonElement root = doc.RootElement;
+
+                JsonElement peopleArray = root.GetProperty("people");
+
+                JsonElement pickedPerson = peopleArray[Random.Shared.Next(peopleArray.GetArrayLength())]; // Randomly selects a person from the list
+
+                
+                answer = pickedPerson.GetString() ?? string.Empty; // Gets the name of the person, asegura que no sea nulo
+
+                Console.WriteLine($"Selected person: {answer}"); // Outputs the selected person to the console
+            }
 
             try
             {
-                var response = await client.GetStringAsync(url); // waits for the response from the API
-                var doc = JsonDocument.Parse(response); // parses the JSON response
+                var response = await client.GetStringAsync(url + answer); // waits for the response from the API
+                Console.WriteLine($"Response: {response}"); // Outputs the response to the console
+                using (JsonDocument doc = JsonDocument.Parse(response))
+                {
+                    JsonElement root = doc.RootElement;
+
+                    JsonElement summaryJSON = root.GetProperty("extract");
+
+                    string summary = summaryJSON.GetString() ?? string.Empty;// Randomly selects a person from the list
+
+                    Console.WriteLine($"Selected person: {summary}"); // Outputs the selected person to the console
+
+                    return new Article
+                    {
+                        Person = answer,
+                        TextBody = summary,
+                    };
+                }
+
+
 
 
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error fetching data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
+                return new Article
+                {
+                    Person = "Doesn't work",
+                    TextBody = "Doesn't work"
+                };
             }
         }
 

@@ -10,6 +10,6 @@ namespace GuessThePage_Wikipedia.Logic.Entities
     {
         public string Person { get; set; }
         public string TextBody { get; set; }
-        public string Url { get; set; }
+        
     }
 }

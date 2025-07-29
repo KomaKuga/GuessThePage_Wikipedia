@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\Forms"
+    "\\src\\Forms",
+    "\\src\\Logic",
+    "\\src\\Logic\\Servicies"
   ],
-  "SelectedNode": "\\src\\GuessThePage_Wikipedia.sln",
+  "SelectedNode": "\\src\\Logic\\Servicies\\GameLogic.cs",
   "PreviewInSolutionExplorer": false
 }

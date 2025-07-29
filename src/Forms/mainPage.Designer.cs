@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             playerLabel = new Label();
+            textBodyLabel = new Label();
+            personLabel = new Label();
             SuspendLayout();
             // 
             // playerLabel
@@ -40,12 +42,33 @@
             playerLabel.Size = new Size(203, 86);
             playerLabel.TabIndex = 0;
             playerLabel.Text = "Hello ";
+            playerLabel.Click += playerLabel_Click;
+            // 
+            // textBodyLabel
+            // 
+            textBodyLabel.AutoSize = true;
+            textBodyLabel.Location = new Point(89, 219);
+            textBodyLabel.Name = "textBodyLabel";
+            textBodyLabel.Size = new Size(55, 15);
+            textBodyLabel.TabIndex = 1;
+            textBodyLabel.Text = "BodyText";
+            // 
+            // personLabel
+            // 
+            personLabel.AutoSize = true;
+            personLabel.Location = new Point(55, 515);
+            personLabel.Name = "personLabel";
+            personLabel.Size = new Size(43, 15);
+            personLabel.TabIndex = 2;
+            personLabel.Text = "Person";
             // 
             // mainPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1854, 1041);
+            Controls.Add(personLabel);
+            Controls.Add(textBodyLabel);
             Controls.Add(playerLabel);
             Name = "mainPage";
             Text = "mainPage";
@@ -56,5 +79,7 @@
         #endregion
 
         private Label playerLabel;
+        private Label textBodyLabel;
+        private Label personLabel;
     }
 }
