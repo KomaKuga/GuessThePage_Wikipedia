@@ -101,12 +101,13 @@
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(1474, 176);
+            label3.Font = new Font("Segoe UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.Red;
+            label3.Location = new Point(1373, 91);
             label3.Name = "label3";
-            label3.Size = new Size(79, 15);
+            label3.Size = new Size(455, 196);
             label3.TabIndex = 6;
-            label3.Text = "DISCLAIMER: ";
+            label3.Text = "DISCLAIMER:  GAME'S CENSORING IS NOT PERFECT DUE TO WIKIPEDIA API NOT STORING ALL ALIASES ON ENGLISH";
             // 
             // Form1
             // 
