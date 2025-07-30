@@ -17,12 +17,11 @@ namespace GuessThePage_Wikipedia.Logic.Servicies
         private static readonly HttpClient client = new HttpClient();
 
         string answer;
-        
+
         public async Task<Article> GetRandomArticleFromCategory(string category)
         {
             string wikiApiUrl = "https://en.wikipedia.org/api/rest_v1/page/summary/";
             string peopleList = File.ReadAllText("C:\\Users\\josep\\source\\repos\\KomaKuga\\GuessThePage_Wikipedia\\src\\Logic\\Servicies\\staticList.JSON");
-           
 
             using (JsonDocument doc = JsonDocument.Parse(peopleList))
             {
@@ -45,18 +44,30 @@ namespace GuessThePage_Wikipedia.Logic.Servicies
 
                     List<string> namesToCensor = new List<string>();
 
-                    // Add name parts from the answer (e.g. "Albert_Einstein")
-                    namesToCensor.AddRange(answer.Split('_'));
+                    // From static answer string: add individual parts (split by underscore)
+                    var answerParts = answer.Split('_', StringSplitOptions.RemoveEmptyEntries).ToList();
+                    namesToCensor.AddRange(answerParts);
 
-                    // Try to get Wikidata ID from summary
+                    // Also add full phrase with spaces instead of underscores
+                    namesToCensor.Add(answer.Replace("_", " ").Trim());
+
+                    // Try to get Wikidata ID and add aliases and parts
                     if (root.TryGetProperty("wikibase_item", out JsonElement wikidataIdElement))
                     {
                         string wikidataId = wikidataIdElement.GetString();
                         if (!string.IsNullOrWhiteSpace(wikidataId))
                         {
                             var extraNames = await GetAliasesFromWikidata(wikidataId);
-                            namesToCensor.AddRange(extraNames);
-                            
+
+                            foreach (var alias in extraNames)
+                            {
+                                // Add full alias phrase
+                                namesToCensor.Add(alias);
+
+                                // Add individual words from alias for partial matching
+                                var aliasParts = alias.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                                namesToCensor.AddRange(aliasParts);
+                            }
                         }
                     }
 
@@ -112,13 +123,11 @@ namespace GuessThePage_Wikipedia.Logic.Servicies
                         }
                     }
 
-                    Debug.WriteLine($"Found aliases count: {aliases.Count}"); 
+                    Debug.WriteLine($"Found aliases count: {aliases.Count}");
                     foreach (var alias in aliases)
                     {
                         Debug.WriteLine($"Alias: {alias}");
                     }
-
-                    // (Optional) Add family names or other names if needed
                 }
             }
             catch (Exception ex)
@@ -128,7 +137,6 @@ namespace GuessThePage_Wikipedia.Logic.Servicies
 
             return aliases.Distinct().ToList();
         }
-
 
         private async Task<List<string>> ResolveNameById(string id)
         {
@@ -163,17 +171,28 @@ namespace GuessThePage_Wikipedia.Logic.Servicies
                 string cleanPart = part.Replace("_", " ").Trim();
                 if (string.IsNullOrEmpty(cleanPart)) continue;
 
-                // Try several versions
+                // Try several variations for matching
                 var variations = new List<string>
                 {
                     cleanPart,
-                    cleanPart.Replace(" ", ""), // StevenPaulJobs
-                    cleanPart.ToLowerInvariant(), // steve jobs
+                    cleanPart.Replace(" ", ""), // e.g., ClintEastwood
+                    // lowercase variant not needed due to RegexOptions.IgnoreCase
                 };
 
                 foreach (var variant in variations.Distinct())
                 {
-                    string pattern = $@"\b{Regex.Escape(variant)}('?s)?\b";
+                    string pattern;
+
+                    if (variant.Contains(" "))
+                    {
+                        // Multi-word phrase, no word boundaries because \b doesn't work across spaces
+                        pattern = Regex.Escape(variant);
+                    }
+                    else
+                    {
+                        // Single word, use word boundaries and optional possessive
+                        pattern = $@"\b{Regex.Escape(variant)}('?s)?\b";
+                    }
 
                     summary = Regex.Replace(summary, pattern, match =>
                     {
