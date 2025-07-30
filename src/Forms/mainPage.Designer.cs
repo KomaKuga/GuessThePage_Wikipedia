@@ -31,6 +31,7 @@
             playerLabel = new Label();
             textBodyLabel = new Label();
             personLabel = new Label();
+            testingLabel = new Label();
             SuspendLayout();
             // 
             // playerLabel
@@ -63,11 +64,21 @@
             personLabel.TabIndex = 2;
             personLabel.Text = "Person";
             // 
+            // testingLabel
+            // 
+            testingLabel.AutoSize = true;
+            testingLabel.Location = new Point(1169, 41);
+            testingLabel.Name = "testingLabel";
+            testingLabel.Size = new Size(38, 15);
+            testingLabel.TabIndex = 3;
+            testingLabel.Text = "label1";
+            // 
             // mainPage
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1854, 1041);
+            Controls.Add(testingLabel);
             Controls.Add(personLabel);
             Controls.Add(textBodyLabel);
             Controls.Add(playerLabel);
@@ -82,5 +93,6 @@
         private Label playerLabel;
         private Label textBodyLabel;
         private Label personLabel;
+        private Label testingLabel;
     }
 }
